@@ -4,7 +4,7 @@ import Grid from './grid';
 function App() {
   return (
     <div className="App">
-        <h1>SUDOKU ONLINE</h1>
+        <h1>SUDOKU SOLVER</h1>
         <Grid />
     </div>
   );
