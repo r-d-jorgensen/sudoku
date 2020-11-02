@@ -8,5 +8,5 @@ const NumberBox = ({value, id, onChange}) => {
             onChange={(e) => onChange(e.currentTarget.value, id)}/> 
     );
 }
- 
+
 export default NumberBox;
