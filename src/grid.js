@@ -6,18 +6,6 @@ class Grid extends Component {
     constructor(props) {
         super(props);
         const size = 9;
-        //TODO: outside initalization
-        const values = [
-            '', '', '', '', '', 4, '', 9, '',
-            8, '', 2, 9, 7, '', '', '', '',
-            9, '', 1, 2, '', '', 3, '', '',
-            '', '', '', '', 4, 9, 1, 5, 7,
-            '', 1, 3, '', 5, '', 9, 2, '',
-            5, 7, 9, 1, 2, '', '', '', '',
-            '', '', 7, '', '', 2, 6, '', 3,
-            '', '', '', '', 3, 8, 2, '', 5,
-            '', 2, '', 5, '', '', '', '', '',
-        ];
         let board = [];
         let id = 0;
         for (let row = 0; row < size; row++) {
@@ -38,8 +26,7 @@ class Grid extends Component {
                     row: row,
                     col: col,
                     quadrent: quadrent,
-                    value: values[id],
-                    given: values[id] === "" ? false : true
+                    value: ''
                 });
                 id++;
             }
@@ -126,6 +113,25 @@ class Grid extends Component {
         })
     }
 
+    handleTest = () => {
+        const values = [
+            '', '', '', '', '', 4, '', 9, '',
+            8, '', 2, 9, 7, '', '', '', '',
+            9, '', 1, 2, '', '', 3, '', '',
+            '', '', '', '', 4, 9, 1, 5, 7,
+            '', 1, 3, '', 5, '', 9, 2, '',
+            5, 7, 9, 1, 2, '', '', '', '',
+            '', '', 7, '', '', 2, 6, '', 3,
+            '', '', '', '', 3, 8, 2, '', 5,
+            '', 2, '', 5, '', '', '', '', '',
+        ];
+        const board = this.state.board;
+        board.forEach((box, i) => {
+            box.value = values[i];
+        });
+        this.setState({ board: board})
+    }
+
     render() {
         //TODO: change row maping to quadrent maping then style
         const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -147,8 +153,8 @@ class Grid extends Component {
                 <Button
                     variant="contained"
                     color="secondary"
-                    onClick={this.handleClear} >
-                    Clear
+                    onClick={this.handleTest} >
+                    Test
                 </Button>
                 <Button
                     variant="contained"
@@ -156,6 +162,12 @@ class Grid extends Component {
                     disabled={this.state.errMsg === '' ? false : true}
                     onClick={this.handleSolve} >
                     Solve
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.handleClear} >
+                    Clear
                 </Button>
                 <p visibility={this.state.errMsg === '' ? 'hidden' : 'visible'}>{this.state.errMsg}</p>
             </div>
