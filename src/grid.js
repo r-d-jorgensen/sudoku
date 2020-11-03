@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NumberBox from './numberBox';
+import Button from '@material-ui/core/Button';
 
 class Grid extends Component {
     constructor(props) {
@@ -50,12 +51,8 @@ class Grid extends Component {
     }
 
     handleSolve = () => {
-        let {board, pathValidity} = this.pathTracer(this.state.board);
-        for (let i = 0; i < 81; i++) {
-            if (!this.checkBox(board[i])) {
-                pathValidity = false;
-            }
-        }
+        let {board, pathValidity} = this.recursiveSolve(this.state.board);
+
         if (pathValidity) {
             this.setState({board: board});
         } else {
@@ -65,15 +62,15 @@ class Grid extends Component {
         }
     };
 
-    pathTracer = (board) => {
+    recursiveSolve = (board) => {
         let emptyLocation = this.nextEmptyBox(board);
         if (emptyLocation === -1) {
             return {board: board, pathValidity: true};
         }
         for (let i = 1; i < 10; i++) {
-            if (this.checkBox(board[emptyLocation], i)) {
+            if (this.checkBox(board[emptyLocation], i, board)) {
                 board[emptyLocation].value = i;
-                let path = this.pathTracer(board);
+                let path = this.recursiveSolve(board);
                 if (path.pathValidity) {
                     return {board: board, pathValidity: true};
                 } else {
@@ -94,22 +91,17 @@ class Grid extends Component {
     };
 
     //find if value works for Box
-    checkBox = ({id, row, col, quadrent}, value) => {
-        const rowBoxes = this.state.board.filter(box => { return box.row === row});
-        const colBoxes = this.state.board.filter(box => { return box.col === col});
-        const quadBoxs = this.state.board.filter(box => { return box.quadrent === quadrent});
+    checkBox = ({id, row, col, quadrent}, value, board) => {
+        const rowBoxes = board.filter(box => { return box.row === row});
+        const colBoxes = board.filter(box => { return box.col === col});
+        const quadBoxs = board.filter(box => { return box.quadrent === quadrent});
         for (let i = 0; i < 9; i++) {
-            if (rowBoxes[i].id !== id){
-                if (value === rowBoxes[i].value && rowBoxes[i].value !== '') {
-                    //console.log("bad row");
-                    return false;
-                } else if (value === colBoxes[i].value && colBoxes[i].value !== '') {
-                    //console.log("bad col");
-                    return false;
-                } else if (value === quadBoxs[i].value && quadBoxs[i].value !== '') {
-                    //console.log("bad quadrent");
-                    return false;
-                }
+            if (value === rowBoxes[i].value && rowBoxes[i].value !== '' && rowBoxes[i].id !== id) {
+                return false;
+            } else if (value === colBoxes[i].value && colBoxes[i].value !== '' && colBoxes[i].id !== id) {
+                return false;
+            } else if (value === quadBoxs[i].value && quadBoxs[i].value !== '' && quadBoxs[i].id !== id) {
+                return false;
             }
         }
         return true;
@@ -117,11 +109,22 @@ class Grid extends Component {
 
     handleChange = (value, id) => {
         const board = this.state.board;
-        board[id].value = value;
+        board[id].value = value === '' ? '' : Number(value);
         this.setState({
             board: board,
+            errMsg: ''
         }); 
     };
+
+    handleClear = () => {
+        const board = this.state.board;
+        board.forEach(box => {
+            box.value = ''
+        });
+        this.setState({
+            board: board
+        })
+    }
 
     render() {
         //TODO: change row maping to quadrent maping then style
@@ -141,11 +144,19 @@ class Grid extends Component {
                         </div>
                     )}
                 </div>
-                <button
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.handleClear} >
+                    Clear
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
                     disabled={this.state.errMsg === '' ? false : true}
                     onClick={this.handleSolve} >
                     Solve
-                </button>
+                </Button>
                 <p visibility={this.state.errMsg === '' ? 'hidden' : 'visible'}>{this.state.errMsg}</p>
             </div>
         );

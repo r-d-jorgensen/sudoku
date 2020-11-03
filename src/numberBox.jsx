@@ -1,15 +1,14 @@
 import React from 'react';
-import InputMask from 'react-input-mask'
+import InputMask  from 'react-input-mask'
 
 const NumberBox = ({value, id, onChange}) => {
     return (
-        <InputMask
+        <InputMask 
             className="numberBox"
-            mask="9"
-            maskChar=""
+            mask={'9'}
+            maskChar={""}
             value={value}
-            onChange={(e) => onChange(e.currentTarget.value, id)}>
-        </InputMask> 
+            onChange={(e) => onChange(e.currentTarget.value, id)} />
     );
 }
 
