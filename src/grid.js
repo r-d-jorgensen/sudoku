@@ -51,7 +51,6 @@ class Grid extends Component {
 
     handleSolve = () => {
         let {board, pathValidity} = this.pathTracer(this.state.board);
-        //TODO: final check of board
         for (let i = 0; i < 81; i++) {
             if (!this.checkBox(board[i])) {
                 pathValidity = false;
@@ -64,36 +63,6 @@ class Grid extends Component {
                 errMsg: "This Sudoku is Unsolvable"
             });
         }
-
-        /* manual check method
-            const testCheck = [
-                7, 3, 5, 6, 1, 4, 8, 9, 2,
-                8, 4, 2, 9, 7, 3, 5, 6, 1,
-                9, 6, 1, 2, 8, 5, 3, 7, 4,
-                2, 8, 6, 3, 4, 9, 1, 5, 7,
-                4, 1, 3, 8, 5, 7, 9, 2, 6,
-                5, 7, 9, 1, 2, 6, 4, 3, 8,
-                1, 5, 7, 4, 9, 2, 6, 8, 3,
-                6, 9, 4, 7, 3, 8, 2, 1, 5,
-                3, 2, 8, 5, 6, 1, 7, 4, 9,
-            ];
-            let temp = '';
-            let correct = true;
-            for (let i = 1; i <= 81; i++) {
-                if (board[i-1].value === testCheck[i-1]) {
-                    temp += '1, '
-                } else {
-                    temp += "0, "
-                    correct = false;
-                }
-                if (i % 9 === 0) {
-                    temp += "\n";
-                }
-            }
-            console.log(correct);
-            console.log(temp);
-        */
-        
     };
 
     pathTracer = (board) => {
@@ -147,18 +116,10 @@ class Grid extends Component {
     }
 
     handleChange = (value, id) => {
-        let errMsg = '';
-        //TODO: there has to be a better way of doing this
-        if (value !== 1 || value !== 2 || value !== 3 || value !== 4 ||
-            value !== 5 || value !== 6 || value !== 7 || value !== 8 ||
-            value !== 9) {
-            errMsg = 'Enter at number between 1 and 9'
-        }
         const board = this.state.board;
         board[id].value = value;
         this.setState({
             board: board,
-            errMsg: errMsg
         }); 
     };
 
