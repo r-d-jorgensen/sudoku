@@ -144,7 +144,11 @@ class Sudoku extends Component {
                         this.state.board.filter(box => box.quadrent === quad)).map((quadrent, i) =>
                             <div className="quadrent" key={i}>
                                 {quadrent.map(box => 
-                                    <NumberBox key={box.id} value={box.value} onChange={this.handleChange} />
+                                    <NumberBox
+                                        key={box.id}
+                                        id={box.id}
+                                        value={box.value}
+                                        onChange={this.handleChange} />
                                 )}
                             </div>
                     )}
