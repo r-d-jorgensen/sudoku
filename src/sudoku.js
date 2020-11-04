@@ -140,25 +140,16 @@ class Sudoku extends Component {
         
         const grid = [];
         for (let i = 0; i < 9; i++) {
-            const quadrent = [];
-            const board = this.state.board.filter(box => box.quadrent === i);
-            for (let i = 0; i < 9; i += 3) {
-                quadrent.push(board.slice(i, i + 3));
-            }
-            grid.push(quadrent);
+            grid.push(this.state.board.filter(box => box.quadrent === i));
         }
         return (
             <div className="content">
                 <h1>SUDOKU SOLVER</h1>
                 <div className="sudoku-grid">
-                    {grid.map((quadrent, j) =>
-                        <div className="quadrent" key={j}>
-                            {quadrent.map((row, k) => 
-                                <div key={k}>
-                                    {row.map(box => 
-                                        <NumberBox key={box.id} value={box.value} onChange={this.handleChange} />
-                                    )}
-                                </div>
+                    {grid.map((quadrent, i) =>
+                        <div className="quadrent" key={i}>
+                            {quadrent.map(box => 
+                                <NumberBox key={box.id} value={box.value} onChange={this.handleChange} />
                             )}
                         </div>
                     )}
