@@ -1,11 +1,10 @@
 import './App.css';
-import Grid from './grid';
+import Sudoku from './sudoku';
 
 function App() {
   return (
     <div className="App">
-        <h1>SUDOKU SOLVER</h1>
-        <Grid />
+        <Sudoku />
     </div>
   );
 }

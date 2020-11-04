@@ -1,5 +1,7 @@
-.App {
+.content {
   text-align: center;
+  margin: auto;
+  width: 50%;
 }
 
 .numberBox {
@@ -7,4 +9,19 @@
   width: 55px;
   height: 55px;
   font-size: 25px;
+}
+
+.errMsg {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+
+.expainingText {
+  font-size: 20px;
+  text-align: left;
+  margin: 10px;
+  padding: 5px;
+  border: 1ch solid white;
+  border-radius: 1ch;
 }

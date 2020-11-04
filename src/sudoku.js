@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NumberBox from './numberBox';
 import Button from '@material-ui/core/Button';
 
-class Grid extends Component {
+class Sudoku extends Component {
     constructor(props) {
         super(props);
         const size = 9;
@@ -140,7 +140,8 @@ class Grid extends Component {
         //TODO: change row maping to quadrent maping then style
         const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
         return (
-            <div>
+            <div className="content">
+                <h1>SUDOKU SOLVER</h1>
                 <div >
                     {rows.map(row =>
                         <div key={row}>
@@ -154,6 +155,11 @@ class Grid extends Component {
                         </div>
                     )}
                 </div>
+                <br />
+                <p className="errMsg"
+                    visibility={this.state.errMsg === '' ? 'hidden' : 'visible'} >
+                    {this.state.errMsg}
+                </p>
                 <Button
                     variant="contained"
                     color="secondary"
@@ -173,10 +179,15 @@ class Grid extends Component {
                     onClick={this.handleClear} >
                     Clear
                 </Button>
-                <p visibility={this.state.errMsg === '' ? 'hidden' : 'visible'}>{this.state.errMsg}</p>
+                <div className="expainingText" >
+                    This system is meant to solve Sundoku puzzles.
+                    Just enter the numbers in or to see how it works press the "Test" Button.
+                    When ready to have it solve press the "Solve" Button.
+                    It will ether come back with a complete puzzle or will say that it is Unsolvable.
+                </div>
             </div>
         );
     }
 }
 
-export default Grid;
+export default Sudoku;
