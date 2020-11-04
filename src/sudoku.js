@@ -10,7 +10,6 @@ class Sudoku extends Component {
         let id = 0;
         for (let row = 0; row < size; row++) {
             for (let col = 0; col < size; col++) { 
-                //TODO: find elegant equation for quadrent
                 let quadrent = 0;
                 if (row > 5) {
                     quadrent = 6;
@@ -138,19 +137,28 @@ class Sudoku extends Component {
 
     render() {
         //TODO: change row maping to quadrent maping then style
-        const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        
+        const grid = [];
+        for (let i = 0; i < 9; i++) {
+            const quadrent = [];
+            const board = this.state.board.filter(box => box.quadrent === i);
+            for (let i = 0; i < 9; i += 3) {
+                quadrent.push(board.slice(i, i + 3));
+            }
+            grid.push(quadrent);
+        }
         return (
             <div className="content">
                 <h1>SUDOKU SOLVER</h1>
-                <div >
-                    {rows.map(row =>
-                        <div key={row}>
-                            {this.state.board.slice(row * 9, row * 9 + 9).map((box) =>
-                                <NumberBox
-                                    key={box.id}
-                                    id={box.id}
-                                    value={box.value}
-                                    onChange={this.handleChange} />
+                <div className="sudoku-grid">
+                    {grid.map((quadrent, j) =>
+                        <div className="quadrent" key={j}>
+                            {quadrent.map((row, k) => 
+                                <div key={k}>
+                                    {row.map(box => 
+                                        <NumberBox key={box.id} value={box.value} onChange={this.handleChange} />
+                                    )}
+                                </div>
                             )}
                         </div>
                     )}
