@@ -38,12 +38,17 @@ class Sudoku extends Component {
 
     handleSolve = () => {
         let {board, pathValidity} = this.recursiveSolve(this.state.board);
-
+        for (let i = 0; i < 80; i++) {
+            if (!this.checkBox(board[i], board[i].value, board)) {
+                pathValidity = false;
+            }
+        }
         if (pathValidity) {
             this.setState({board: board});
         } else {
+            this.handleClear();
             this.setState({
-                errMsg: "This Sudoku is Unsolvable"
+                errMsg: "This Sudoku was Unsolvable"
             });
         }
     };
