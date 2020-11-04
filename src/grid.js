@@ -109,7 +109,8 @@ class Grid extends Component {
             box.value = ''
         });
         this.setState({
-            board: board
+            board: board,
+            errMsg: ''
         })
     }
 
@@ -129,7 +130,10 @@ class Grid extends Component {
         board.forEach((box, i) => {
             box.value = values[i];
         });
-        this.setState({ board: board})
+        this.setState({
+            board: board,
+            errMsg: ''
+        })
     }
 
     render() {
