@@ -5,34 +5,34 @@ import Button from '@material-ui/core/Button';
 class Sudoku extends Component {
     constructor(props) {
         super(props);
+        //empty board
         const size = 9;
         let board = [];
-        let id = 0;
-        for (let row = 0; row < size; row++) {
-            for (let col = 0; col < size; col++) { 
-                let quadrent = 0;
-                if (row > 5) {
-                    quadrent = 6;
-                } else if (row > 2) {
-                    quadrent = 3;
-                }
-                if (col > 5) {
-                    quadrent += 2;
-                } else if (col > 2) {
-                    quadrent += 1;
-                }
-                board.push({id: id,
-                    row: row,
-                    col: col,
-                    quadrent: quadrent,
-                    value: ''
-                });
-                id++;
+        for (let i = 0; i < size * size; i++ ) {
+            let quadrent = 0;
+            let row = Math.floor(i / size);
+            let col = i % size;
+            if (row > 5) {
+                quadrent = 6;
+            } else if (row > 2) {
+                quadrent = 3;
             }
+            if (col > 5) {
+                quadrent += 2;
+            } else if (col > 2) {
+                quadrent += 1;
+            }
+            board.push({id: i,
+                row: row,
+                col: col,
+                quadrent: quadrent,
+                value: ''
+            });
         }
         this.state = {
             board: board,
-            errMsg: ''
+            msg: 'Enter a Puzzle for Solving',
+            disableSolve: false
         };
     }
 
@@ -44,11 +44,16 @@ class Sudoku extends Component {
             }
         }
         if (pathValidity) {
-            this.setState({board: board});
+            this.setState({
+                board: board,
+                msg: "The Sudoku was Solvable",
+                disableSolve: true
+            });
         } else {
             this.handleClear();
             this.setState({
-                errMsg: "This Sudoku was Unsolvable"
+                msg: "The Sudoku was Unsolvable",
+                disableSolve: true
             });
         }
     };
@@ -103,7 +108,8 @@ class Sudoku extends Component {
         board[id].value = value === '' ? '' : Number(value);
         this.setState({
             board: board,
-            errMsg: ''
+            msg: 'Would you like to Solve?',
+            disableSolve: false
         }); 
     };
 
@@ -114,7 +120,8 @@ class Sudoku extends Component {
         });
         this.setState({
             board: board,
-            errMsg: ''
+            msg: 'Enter some Values.',
+            disableSolve: false
         })
     }
 
@@ -136,7 +143,8 @@ class Sudoku extends Component {
         });
         this.setState({
             board: board,
-            errMsg: ''
+            msg: 'Try the Solve button',
+            disableSolve: false
         })
     }
 
@@ -159,9 +167,8 @@ class Sudoku extends Component {
                     )}
                 </div>
                 <br />
-                <p className="errMsg"
-                    visibility={this.state.errMsg === '' ? 'hidden' : 'visible'} >
-                    {this.state.errMsg}
+                <p className="msg">
+                    {this.state.msg}
                 </p>
                 <Button
                     variant="contained"
@@ -172,7 +179,7 @@ class Sudoku extends Component {
                 <Button
                     variant="contained"
                     color="primary"
-                    disabled={this.state.errMsg === '' ? false : true}
+                    disabled={this.state.disableSolve}
                     onClick={this.handleSolve} >
                     Solve
                 </Button>
@@ -184,7 +191,8 @@ class Sudoku extends Component {
                 </Button>
                 <div className="expainingText" >
                     This system is meant to solve Sundoku puzzles.
-                    Just enter the numbers in or to see how it works press the "Test" Button.
+                    <br />
+                    Just enter the numbers in, or to see how it works press the "Test" Button.
                     When ready to have it solve press the "Solve" Button.
                     It will ether come back with a complete puzzle or will say that it is Unsolvable.
                 </div>
