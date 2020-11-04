@@ -136,22 +136,17 @@ class Sudoku extends Component {
     }
 
     render() {
-        //TODO: change row maping to quadrent maping then style
-        
-        const grid = [];
-        for (let i = 0; i < 9; i++) {
-            grid.push(this.state.board.filter(box => box.quadrent === i));
-        }
         return (
             <div className="content">
                 <h1>SUDOKU SOLVER</h1>
                 <div className="sudoku-grid">
-                    {grid.map((quadrent, i) =>
-                        <div className="quadrent" key={i}>
-                            {quadrent.map(box => 
-                                <NumberBox key={box.id} value={box.value} onChange={this.handleChange} />
-                            )}
-                        </div>
+                    {[0,1,2,3,4,5,6,7,8].map(quad =>
+                        this.state.board.filter(box => box.quadrent === quad)).map((quadrent, i) =>
+                            <div className="quadrent" key={i}>
+                                {quadrent.map(box => 
+                                    <NumberBox key={box.id} value={box.value} onChange={this.handleChange} />
+                                )}
+                            </div>
                     )}
                 </div>
                 <br />
