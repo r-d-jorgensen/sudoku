@@ -154,16 +154,16 @@ class Sudoku extends Component {
                 <h1>SUDOKU SOLVER</h1>
                 <div className="sudoku-grid">
                     {[0,1,2,3,4,5,6,7,8].map(quad =>
-                        this.state.board.filter(box => box.quadrent === quad)).map((quadrent, i) =>
-                            <div className="quadrent" key={i}>
-                                {quadrent.map(box => 
-                                    <NumberBox
-                                        key={box.id}
-                                        id={box.id}
-                                        value={box.value}
-                                        onChange={this.handleChange} />
-                                )}
-                            </div>
+                    this.state.board.filter(box => box.quadrent === quad)).map((quadrent, i) =>
+                        <div className="quadrent" key={i}>
+                            {quadrent.map(box => 
+                                <NumberBox
+                                    key={box.id}
+                                    id={box.id}
+                                    value={box.value}
+                                    onChange={this.handleChange} />
+                            )}
+                        </div>
                     )}
                 </div>
                 <br />
@@ -190,11 +190,11 @@ class Sudoku extends Component {
                     Clear
                 </Button>
                 <div className="expainingText" >
-                    This system is meant to solve Sundoku puzzles.
+                    This system is meant to solve Sudoku puzzles.
                     <br />
                     Just enter the numbers in, or to see how it works press the "Test" Button.
                     When ready to have it solve press the "Solve" Button.
-                    It will ether come back with a complete puzzle or will say that it is Unsolvable.
+                    It will either come back with a complete puzzle or will say that it is Unsolvable.
                 </div>
             </div>
         );
