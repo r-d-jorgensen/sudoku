@@ -5,7 +5,7 @@ import { Button, ThemeProvider, createMuiTheme } from '@material-ui/core';
 class Sudoku extends Component {
     constructor(props) {
         super(props);
-        //empty board
+        //create empty board
         const size = 9;
         let board = [];
         for (let i = 0; i < size * size; i++ ) {
@@ -36,8 +36,11 @@ class Sudoku extends Component {
         };
     }
 
+    //solve sudoku on the board in state
     handleSolve = () => {
+        //call recursion
         let {board, pathValidity} = this.recursiveSolve(this.state.board);
+        //double check for misses
         for (let i = 0; i < 80; i++) {
             if (!this.checkBox(board[i], board[i].value, board)) {
                 pathValidity = false;
@@ -58,6 +61,7 @@ class Sudoku extends Component {
         }
     };
 
+    //exit recursion when no more locations to fill or no correct spot
     recursiveSolve = (board) => {
         let emptyLocation = this.nextEmptyBox(board);
         if (emptyLocation === -1) {
@@ -77,6 +81,7 @@ class Sudoku extends Component {
         return {board: board, pathValidity: false};
     };
 
+    //find empty location on board
     nextEmptyBox = (board) => {
         for ( let i = 0; i < 81; i++) {
             if (board[i].value === '') {
@@ -103,6 +108,7 @@ class Sudoku extends Component {
         return true;
     }
 
+    //input is already filtered just changing state of board
     handleChange = (value, id) => {
         const board = this.state.board;
         board[id].value = value === '' ? '' : Number(value);
@@ -113,6 +119,7 @@ class Sudoku extends Component {
         }); 
     };
 
+    //set all values in board to zero
     handleClear = () => {
         const board = this.state.board;
         board.forEach(box => {
@@ -125,6 +132,8 @@ class Sudoku extends Component {
         })
     }
 
+    //creates static test puzzle
+    //TODO: change to creating puzzles dynamicly or reading from puzzles doc
     handleTest = () => {
         const values = [
             '', '', '', '', '', 4, '', 9, '',
@@ -149,6 +158,7 @@ class Sudoku extends Component {
     }
 
     render() {
+        //TODO: shift <p>, Mask, and div to material-ui or make button not and add css for it
         const theme = createMuiTheme({
             overrides: {
                 MuiButton: {
@@ -172,7 +182,9 @@ class Sudoku extends Component {
             <div className="content">
                 <h1 className="title" >SUDOKU SOLVER</h1>
                 <div className="sudoku-grid">
-                    {[0,1,2,3,4,5,6,7,8].map(quad =>
+                    {//dynamic creation of the board from state
+                    //TODO: look into not using [1...8] array for mapping
+                    [0,1,2,3,4,5,6,7,8].map(quad =>
                     this.state.board.filter(box => box.quadrent === quad)).map((quadrent, i) =>
                         <div className="quadrent" key={i}>
                             {quadrent.map(box => 

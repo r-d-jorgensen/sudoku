@@ -2,7 +2,6 @@ import React from "react";
 import App from "./App";
 import Sudoku from "./Sudoku";
 import NumberBox from "./NumberBox";
-
 import { shallow } from "enzyme";
 
 describe("rendering components", () => {
@@ -24,3 +23,5 @@ describe("sudoku component", () => {
     expect(text).toEqual('SUDOKU SOLVER');
   });
 });
+
+//TODO: checks for each of the components espesialy the main Sudoku one
