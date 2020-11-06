@@ -1,5 +1,5 @@
 import './App.css';
-import Sudoku from './sudoku';
+import Sudoku from './Sudoku';
 
 function App() {
   return (
