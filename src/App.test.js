@@ -16,3 +16,11 @@ describe("rendering components", () => {
     shallow(<NumberBox />);
   });
 });
+
+describe("sudoku component", () => {
+  it("contains h1 header", () => {
+    const wraper = shallow(<Sudoku />);
+    const text = wraper.find('h1').text();
+    expect(text).toEqual('SUDOKU SOLVER');
+  });
+});
