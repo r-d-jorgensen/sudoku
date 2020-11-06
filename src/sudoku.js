@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NumberBox from './numberBox';
-import Button from '@material-ui/core/Button';
+import { Button, ThemeProvider, createMuiTheme } from '@material-ui/core';
 
 class Sudoku extends Component {
     constructor(props) {
@@ -149,9 +149,28 @@ class Sudoku extends Component {
     }
 
     render() {
+        const theme = createMuiTheme({
+            overrides: {
+                MuiButton: {
+                    root: {
+                    margin: "0px 15px",
+                    height: "40px",
+                    width: "125px",
+                    }
+                }
+            },
+            palette: {
+                primary: {
+                    main: "#800000",
+                },
+                secondary: {
+                    main: "#1800a0",
+                },
+            },
+        });
         return (
             <div className="content">
-                <h1>SUDOKU SOLVER</h1>
+                <h1 className="title" >SUDOKU SOLVER</h1>
                 <div className="sudoku-grid">
                     {[0,1,2,3,4,5,6,7,8].map(quad =>
                     this.state.board.filter(box => box.quadrent === quad)).map((quadrent, i) =>
@@ -166,35 +185,42 @@ class Sudoku extends Component {
                         </div>
                     )}
                 </div>
-                <br />
-                <p className="msg">
-                    {this.state.msg}
-                </p>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={this.handleTest} >
-                    Test
-                </Button>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    disabled={this.state.disableSolve}
-                    onClick={this.handleSolve} >
-                    Solve
-                </Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={this.handleClear} >
-                    Clear
-                </Button>
-                <div className="expainingText" >
-                    This system is meant to solve Sudoku puzzles.
-                    <br />
-                    Just enter the numbers in, or to see how it works press the "Test" Button.
-                    When ready to have it solve press the "Solve" Button.
-                    It will either come back with a complete puzzle or will say that it is Unsolvable.
+                <div className="msgBox" >
+                    <p>
+                        {this.state.msg}
+                    </p>
+                </div>
+                <div>
+                    <ThemeProvider theme={theme}>
+                        <Button
+                            color="secondary"
+                            variant="contained"
+                            onClick={this.handleTest} >
+                            Test
+                        </Button>
+                        <Button
+                            color="primary"
+                            variant="contained" 
+                            disabled={this.state.disableSolve}
+                            onClick={this.handleSolve} >
+                            Solve
+                        </Button>
+                        <Button
+                            color="secondary"
+                            variant="contained"
+                            onClick={this.handleClear} >
+                            Clear
+                        </Button>
+                    </ThemeProvider>
+                </div>
+                <div className="expainingBox" >
+                    <p>
+                        This system is meant to solve Sudoku puzzles.
+                        <br />
+                        Just enter the numbers in, or to see how it works press the "Test" Button.
+                        When ready to have it solve press the "Solve" Button.
+                        It will either come back with a complete puzzle or will say that it is Unsolvable.
+                    </p>
                 </div>
             </div>
         );
