@@ -1,8 +1,18 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import App from "./App";
+import Sudoku from "./Sudoku";
+import NumberBox from "./NumberBox";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import { shallow } from "enzyme";
+
+describe("rendering components", () => {
+  it("renders App conponent without chrashng", () => {
+    shallow(<App />);
+  });
+  it("renders Sudoku without crashing", () => {
+    shallow(<Sudoku />);
+  });
+  it("renders NumberBox without crashing", () => {
+    shallow(<NumberBox />);
+  });
 });
