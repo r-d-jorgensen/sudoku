@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NumberBox from './numberBox';
+import NumberBox from './NumberBox';
 import { Button, ThemeProvider, createMuiTheme } from '@material-ui/core';
 
 class Sudoku extends Component {
@@ -26,7 +26,8 @@ class Sudoku extends Component {
                 row: row,
                 col: col,
                 quadrent: quadrent,
-                value: ''
+                value: '',
+                valid: null
             });
         }
         this.state = {
@@ -108,13 +109,20 @@ class Sudoku extends Component {
         return true;
     }
 
-    //input is already filtered just changing state of board
+    //final checks on userInput
     handleChange = (value, id) => {
+        let msg = 'Would you like to Solve?';
         const board = this.state.board;
-        board[id].value = value === '' ? '' : Number(value);
+        if (value === '' || value === '0') {
+            board[id].value =  '';
+        } else {
+            this.checkBox(board[id], Number(value), board)
+                ? board[id].value = Number(value)
+                : msg = 'That number will not work there';
+        }
         this.setState({
             board: board,
-            msg: 'Would you like to Solve?',
+            msg: msg,
             disableSolve: false
         }); 
     };
