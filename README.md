@@ -1,6 +1,7 @@
 ### to Start
 
-clone the directory to your system then go into the file in a commandline terminal
+clone the directory to your system by either downloading the zip then unpacking it or by using git to download it in
+Then go into the file in a commandline terminal
 Once in terminal enter 'yarn install' to download all needed dependencies
 **this tool chain was build with create react app**
 
