@@ -1,18 +1,8 @@
-# SUDOKU SOLVER
+### 'To Start'
 
-This a React Application meant to solve or play sudoku games.\
-It is currently hosted with AWS at http://rdjorgensen.net using a static type serve with no back end.\
-The App currently has two main points:
-
-1. Creates test sudoku\
-   **currently there is only one test looking into dynamicly creating more**
-2. Will solve any sudoku put into it or will return stating that it is unsolvable\
-   **The algorithum used is a recursive backtrace that will go fowards with puting numbers in 1-9 till it hits end or can't move foward. If it can't go forward it will recure to last step and try the next number avalible. This will only stop if it recures to the begining or it gets to the end.**
-
-### to 'Start'
-
-clone the directory to your system then go into the file in a commandline terminal
-Once in terminal enter 'yarn install' to download all needed dependencies
+Clone the directory to your system by either downloading the zip then unpacking it or by using git to download it in.\
+Then go into the file in a commandline terminal.\
+Once in terminal enter 'yarn install' to download all needed dependencies.\
 **this tool chain was build with create react app**
 
 In the project directory, you can run the following scripts:
